@@ -212,6 +212,31 @@ MinGW64:
       - ./*.log
       - tests/*.log
 
+# That is a specific runner that we cannot enable universally.
+# We restrict it to builds under the $BUILD_IMAGES_PROJECT project.
+FreeBSD.x86_64:
+  stage: stage1-testing
+  image:
+  script:
+    - pkg install gengetopt
+    - ./bootstrap --skip-po
+    - LIBS="-L/usr/local/lib" ./configure -C --disable-valgrind-tests --disable-doc
+    - gmake -j$(sysctl hw.ncpu | awk '{print $2}')
+    - gmake check -j$(sysctl hw.ncpu | awk '{print $2}')
+  tags:
+    - freebsd
+  only:
+    - branches@libidn/libidn2
+  except:
+    - tags
+  artifacts:
+    expire_in: 2 weeks
+    when: on_failure
+    paths:
+      - ./*.log
+      - fuzz/*.log
+      - tests/*.log
+
 # After having issues with building from tarball (make distcheck was ok),
 # outside a git repo, we test the tarball stand-alone.
 Tarball:
