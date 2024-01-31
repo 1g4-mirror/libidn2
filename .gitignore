@@ -141,6 +141,7 @@
 /tests/repro-to-unicode-8z8z
 /tests/test-IdnaTest-inc
 /tests/test-IdnaTest-txt
+/tests/test-IdnaTestV2-txt
 /tests/test-compat-punycode
 /tests/test-glibc
 /tests/test-locale
