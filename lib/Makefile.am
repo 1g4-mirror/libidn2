@@ -65,14 +65,14 @@ MAINTAINERCLEANFILES = $(IDNA_TABLE) $(TR46MAP) $(NFCQC)
 EXTRA_DIST = $(IDNA_TABLE) $(TR46MAP) $(NFCQC) data.c gendata.c tr46map_data.c gentr46map.c
 
 gendata$(EXEEXT): gendata.c
-	$(CC) $(DEFAULT_INCLUDES) $(AM_CPPFLAGS) $(CFLAGS) $< -o $@
+	$(CC) $(DEFAULT_INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $< -o $@
 data.c: $(srcdir)/gendata.c $(IDNA_TABLE)
 	$(MAKE) gendata$(EXEEXT)
 	$(builddir)/gendata$(EXEEXT) < $(IDNA_TABLE) > $@.new
 	mv $@.new $@
 
 gentr46map$(EXEEXT): gentr46map.c
-	$(CC) $(DEFAULT_INCLUDES) $(AM_CPPFLAGS) $(CFLAGS) $< -o $@
+	$(CC) $(DEFAULT_INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $< -o $@
 tr46map_data.c: $(srcdir)/gentr46map.c $(TR46MAP) $(NFCQC)
 	$(MAKE) gentr46map$(EXEEXT)
 	$(builddir)/gentr46map$(EXEEXT) > $@.new
