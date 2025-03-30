@@ -22,7 +22,7 @@
 #include <idn2.h>		/* idn2_register_ul, IDN2_OK, idn2_strerror, idn2_strerror_name */
 
 int
-main (int argc, char *argv[])
+main ()
 {
   int rc;
   char src[BUFSIZ];
