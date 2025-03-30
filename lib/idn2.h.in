@@ -98,18 +98,6 @@ extern "C"
 # endif
 
 /**
- * G_GNUC_UNUSED
- *
- * Parameter attribute: Parameter is not used.
- */
-# if GCC_VERSION_AT_LEAST(2,95)
-#  define G_GNUC_UNUSED __attribute__ ((__unused__))
-# else
-#  define G_GNUC_UNUSED		/* empty */
-# endif
-
-
-/**
  * IDN2_VERSION
  *
  * Pre-processor symbol with a string that describe the header file
@@ -305,8 +293,7 @@ extern "C"
 					 int flags);
 
   extern _IDN2_API int idn2_to_unicode_8z4z (const char *input,
-					     uint32_t ** output,
-					     int flags G_GNUC_UNUSED);
+					     uint32_t ** output, int flags);
   extern _IDN2_API int idn2_to_unicode_4z4z (const uint32_t * input,
 					     uint32_t ** output, int flags);
   extern _IDN2_API int idn2_to_unicode_44i (const uint32_t * in, size_t inlen,
