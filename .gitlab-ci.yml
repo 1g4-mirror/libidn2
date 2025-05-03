@@ -333,7 +333,7 @@ B-Fedora39-ASAN/UBSan:
   - make V=1 -C unistring
   - make V=1 -C gl
   - make V=1 -C lib CFLAGS="$CFLAGS -Wall -Wextra -Werror"
-  - make V=1 -C examples CFLAGS="$CFLAGS -Wall -Wextra -Werror -Wno-unused-parameter"
+  - make V=1 -C examples CFLAGS="$CFLAGS -Wall -Wextra -Werror"
   - make V=1 -j$(nproc) check VERBOSE=t
 
 B-Fedora39-clang-analyzer:
