@@ -73,7 +73,5 @@ update-po: refresh-po
 	git commit po/*.po.in \
 		-m "maint: Run 'make update-po' for new translations."
 
-sc_codespell:
-	@if `which codespell > /dev/null`; then \
-		codespell -L tim,mitre,bu `git -C $(top_srcdir) ls-files | egrep -v '^po/.*\.po\.in|_fuzzer.in|_fuzzer.repro|gnulib|^lib/.*\.(csv|txt)$$'`; \
-	fi
+codespell_ignore_words_list = meu,bu,te,ba,noe,nwe,mye,myu,tye,tim,ede,wich,poin
+exclude_file_name_regexp--sc_codespell = ^po/.*\.po\.in|_fuzzer.in|_fuzzer.repro|gnulib|^lib/.*\.(csv|txt)$$
