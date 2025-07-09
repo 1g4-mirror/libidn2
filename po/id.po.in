@@ -2,150 +2,150 @@
 # Copyright (C) 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the libidn2 package.
 # Andhika Padmawan <andhika.padmawan@gmail.com>, 2008-2012.
-# Andika Triwidada <andika@gmail.com>, 2022.
+# Andika Triwidada <andika@gmail.com>, 2022, 2025.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libidn2 2.3.1\n"
+"Project-Id-Version: libidn2 2.3.8\n"
 "Report-Msgid-Bugs-To: bug-libidn2@gnu.org\n"
-"POT-Creation-Date: 2021-05-12 19:43+0200\n"
-"PO-Revision-Date: 2022-06-21 16:51+0700\n"
+"POT-Creation-Date: 2025-03-08 20:51+0000\n"
+"PO-Revision-Date: 2025-03-09 18:55+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.5\n"
 
-#: lib/error.c:53
+#: lib/error.c:54
 msgid "success"
 msgstr "sukses"
 
-#: lib/error.c:54
+#: lib/error.c:56
 msgid "out of memory"
 msgstr "kehabisan memori"
 
-#: lib/error.c:55
+#: lib/error.c:58
 msgid "could not determine locale encoding format"
 msgstr "tidak dapat menentukan format pengodean lokal"
 
-#: lib/error.c:56
+#: lib/error.c:60
 msgid "could not convert string to UTF-8"
 msgstr "tak bisa mengonversi dari %s ke UTF-8"
 
-#: lib/error.c:57
+#: lib/error.c:62
 msgid "string encoding error"
 msgstr "kesalahan pengodean string"
 
-#: lib/error.c:58
+#: lib/error.c:64
 msgid "string could not be NFC normalized"
 msgstr "string tidak dapat dinormalisasi NFC"
 
-#: lib/error.c:59
+#: lib/error.c:66
 msgid "string contains invalid punycode data"
 msgstr "string memuat data punycode yang tidak valid"
 
-#: lib/error.c:60
+#: lib/error.c:68
 msgid "punycode encoded data will be too large"
 msgstr "data yang dikodekan punycode akan terlalu besar"
 
-#: lib/error.c:61
+#: lib/error.c:70
 msgid "punycode conversion resulted in overflow"
 msgstr "konversi punycode mengakibatkan overflow"
 
-#: lib/error.c:62
+#: lib/error.c:72
 msgid "domain name longer than 255 characters"
 msgstr "nama domain lebih panjang dari 255 karakter"
 
-#: lib/error.c:63
+#: lib/error.c:74
 msgid "domain label longer than 63 characters"
 msgstr "label domain lebih panjang dari 63 karakter"
 
-#: lib/error.c:64
+#: lib/error.c:76
 msgid "input A-label is not valid"
 msgstr "masukan A-label tidak valid"
 
-#: lib/error.c:65
+#: lib/error.c:78
 msgid "input A-label and U-label does not match"
 msgstr "masukan A-label dan U-label tidak cocok"
 
-#: lib/error.c:66
+#: lib/error.c:80
 msgid "string is not in Unicode NFC format"
 msgstr "string tidak dalam format Unicode NFC"
 
-#: lib/error.c:67
+#: lib/error.c:82
 msgid "string contains forbidden two hyphens pattern"
 msgstr "string berisi pola dua tanda hubung yang terlarang"
 
-#: lib/error.c:68
+#: lib/error.c:84
 msgid "string start/ends with forbidden hyphen"
 msgstr "string mulai/berakhir dengan tanda hubung yang terlarang"
 
-#: lib/error.c:69
+#: lib/error.c:86
 msgid "string contains a forbidden leading combining character"
 msgstr "string berisi karakter gabungan awal yang terlarang"
 
-#: lib/error.c:70
+#: lib/error.c:88
 msgid "string contains a disallowed character"
 msgstr "string berisi karakter yang tidak diizinkan"
 
-#: lib/error.c:71
+#: lib/error.c:90
 msgid "string contains a forbidden context-j character"
 msgstr "string berisi karakter context-j yang terlarang"
 
-#: lib/error.c:72
+#: lib/error.c:92
 msgid "string contains a context-j character with null rule"
 msgstr "string berisi karakter context-j dengan aturan null"
 
-#: lib/error.c:73
+#: lib/error.c:94
 msgid "string contains a forbidden context-o character"
 msgstr "string berisi karakter context-o yang terlarang"
 
-#: lib/error.c:74
+#: lib/error.c:96
 msgid "string contains a context-o character with null rule"
 msgstr "string berisi karakter context-o dengan aturan null"
 
-#: lib/error.c:75
+#: lib/error.c:98
 msgid "string contains unassigned code point"
 msgstr "string berisi titik kode yang belum ditetapkan"
 
-#: lib/error.c:76
+#: lib/error.c:100
 msgid "string has forbidden bi-directional properties"
 msgstr "string memiliki sifat dua arah yang terlarang"
 
-#: lib/error.c:77
+#: lib/error.c:102
 msgid "domain label has forbidden dot (TR46)"
 msgstr "label domain memiliki titik terlarang (TR46)"
 
-#: lib/error.c:78
+#: lib/error.c:105
 msgid "domain label has character forbidden in transitional mode (TR46)"
 msgstr "label domain memiliki karakter yang dilarang dalam mode transisi (TR46)"
 
-#: lib/error.c:79
+#: lib/error.c:109
 msgid "domain label has character forbidden in non-transitional mode (TR46)"
 msgstr "label domain memiliki karakter yang dilarang dalam mode non-transisi (TR46)"
 
-#: lib/error.c:80
+#: lib/error.c:111
 msgid "A-label roundtrip failed"
 msgstr "perjalanan pulang pergi A-label gagal"
 
-#: lib/error.c:81
+#: lib/error.c:113
 msgid "Unknown error"
 msgstr "Kesalahan tak dikenal"
 
-#: src/idn2.c:59
+#: src/idn2.c:57
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Coba '%s --help' untuk informasi lebih lanjut.\n"
 
-#: src/idn2.c:63
+#: src/idn2.c:61
 #, c-format
 msgid "Usage: %s [OPTION]... [STRINGS]...\n"
 msgstr "Penggunaan: %s [OPSI]... [STRING]...\n"
 
-#: src/idn2.c:66
+#: src/idn2.c:64
 msgid ""
 "Internationalized Domain Name (IDNA2008) convert STRINGS, or standard input.\n"
 "\n"
@@ -153,7 +153,7 @@ msgstr ""
 "Nama Domain Internasional (Internationalized Domain Name, IDNA2008) mengonversi STRING, atau masukan standar.\n"
 "\n"
 
-#: src/idn2.c:70
+#: src/idn2.c:68
 msgid ""
 "Command line interface to the Libidn2 implementation of IDNA2008.\n"
 "\n"
@@ -173,7 +173,7 @@ msgstr ""
 "\n"
 "Argumen wajib untuk opsi panjang juga wajib untuk opsi pendek.\n"
 
-#: src/idn2.c:80
+#: src/idn2.c:78
 msgid ""
 "  -h, --help                Print help and exit\n"
 "  -V, --version             Print version and exit\n"
@@ -181,7 +181,7 @@ msgstr ""
 "  -h, --help               Cetak bantuan lalu keluar\n"
 "  -V, --version            Cetak versi lalu keluar\n"
 
-#: src/idn2.c:84
+#: src/idn2.c:82
 msgid ""
 "  -d, --decode              Decode (punycode) domain name\n"
 "  -l, --lookup              Lookup domain name (default)\n"
@@ -191,7 +191,7 @@ msgstr ""
 "  -l, --lookup              Cari nama domain (baku)\n"
 "  -r, --register            Daftarkan label\n"
 
-#: src/idn2.c:89
+#: src/idn2.c:87
 msgid ""
 "  -T, --tr46t               Enable TR46 transitional processing\n"
 "  -N, --tr46nt              Enable TR46 non-transitional processing\n"
@@ -201,7 +201,7 @@ msgstr ""
 "  -N, --tr46nt              Aktifkan pemrosesan non-transisi TR46\n"
 "      --no-tr46             Nonaktifkan pemrosesan TR46\n"
 
-#: src/idn2.c:94
+#: src/idn2.c:92
 msgid ""
 "      --usestd3asciirules   Enable STD3 ASCII rules\n"
 "      --no-alabelroundtrip  Disable A-label roundtrip for lookups\n"
@@ -213,15 +213,20 @@ msgstr ""
 "      --debug               Cetaik informasi debug\n"
 "      --quiet               Operasi senyap\n"
 
-#: src/idn2.c:217
+#: src/idn2.c:208
 #, c-format
 msgid "Charset: %s\n"
 msgstr "Set karakter: %s\n"
 
-#: src/idn2.c:221
+#: src/idn2.c:212
+#, c-format
+msgid "libiconv required for non-UTF-8 character encoding: %s"
+msgstr "libiconv diperlukan bagi pengodean karakter bukan UTF-8: %s"
+
+#: src/idn2.c:218
 msgid "Type each input string on a line by itself, terminated by a newline character.\n"
 msgstr "Ketik tiap string masukan pada baris itu sendiri, diakhiri oleh karakter baris baru.\n"
 
-#: src/idn2.c:252
+#: src/idn2.c:249
 msgid "input error"
 msgstr "galat masukan"

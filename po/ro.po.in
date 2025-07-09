@@ -1,10 +1,11 @@
+# Romanian translation for libidn2.
 # Mesajele în limba română pentru libidn2.
-# Copyright (C) 2003 - 2022 Free Software Foundation, Inc.
+# Copyright © 2003 - 2025 Free Software Foundation, Inc.
 # This file is distributed under the same license as the libidn2 package.
 #
 # Laurentiu Buzdugan <lbuz@rolix.org>, 2003.
 # Florentina Mușat <florentina.musat.28@gmail.com>, 2020.
-# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2022.
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2022 - 2025.
 #
 # Cronologia traducerii fișierului „libidn2”:
 # Traducerea inițială, făcută de LB, pentru versiunea libidn2 0.4.1.
@@ -14,24 +15,26 @@
 # NU și a mesajelor traduse (acestea au rămas neschimbate).
 # Eliminare a mesajelor ce-au dispărut în ultima versiune.
 # Actualizări realizate de Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 15.01.2022.
-# Actualizare a traducerii pentru versiunea 2.3.1, făcută de R-GC.
-# Actualizare a traducerii pentru versiunea 2.3.3, făcută de R-GC.
+# Actualizare a traducerii pentru versiunea 2.3.1, făcută de R-GC, ian-2022.
+# Actualizare a traducerii pentru versiunea 2.3.3, făcută de R-GC, iul-2022.
+# Actualizare a traducerii pentru versiunea 2.3.8, făcută de R-GC, mar-2025.
+# Actualizare a traducerii pentru versiunea Y, făcută de X, Z(luna-anul).
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libidn2 2.3.3\n"
+"Project-Id-Version: libidn2 2.3.8\n"
 "Report-Msgid-Bugs-To: bug-libidn2@gnu.org\n"
-"POT-Creation-Date: 2022-07-11 21:43+0200\n"
-"PO-Revision-Date: 2022-07-12 18:11+0200\n"
+"POT-Creation-Date: 2025-03-08 20:51+0000\n"
+"PO-Revision-Date: 2025-03-09 13:05+0100\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"X-Generator: Poedit 3.5\n"
 
 #: lib/error.c:54
 msgid "success"
@@ -43,7 +46,7 @@ msgstr "memorie insuficientă"
 
 #: lib/error.c:58
 msgid "could not determine locale encoding format"
-msgstr "nu s-a putut determina formatul de codare al localizării"
+msgstr "nu s-a putut determina formatul de codificare local"
 
 #: lib/error.c:60
 msgid "could not convert string to UTF-8"
@@ -51,7 +54,7 @@ msgstr "nu s-a putut converti șirul la UTF-8"
 
 #: lib/error.c:62
 msgid "string encoding error"
-msgstr "eroare de codare a șirului"
+msgstr "eroare de codificare a șirului"
 
 #: lib/error.c:64
 msgid "string could not be NFC normalized"
@@ -99,7 +102,7 @@ msgstr "șirul începe/se termină cu o cratimă interzisă"
 
 #: lib/error.c:86
 msgid "string contains a forbidden leading combining character"
-msgstr "șirul conține un caracter de combinare de conducere interzis"
+msgstr "șirul conține la începutul acestuia, o combinație de caractere interzisă"
 
 #: lib/error.c:88
 msgid "string contains a disallowed character"
@@ -180,7 +183,7 @@ msgid ""
 msgstr ""
 "Interfața în linie de comandă la implementarea Libidn2 a IDNA2008.\n"
 "\n"
-"Toate șirurile sunt de așteptat să fie codate în setul de caractere de localizare.\n"
+"Toate șirurile sunt de așteptat să fie codificate în setul de caractere local.\n"
 "\n"
 "Pentru a procesa un șir care începe cu „-”, de exemplu „--foo”, utilizați „--”\n"
 "pentru a semnaliza sfârșitul parametrilor, ca în „idn2 --quiet -- -foo”.\n"
@@ -192,8 +195,8 @@ msgid ""
 "  -h, --help                Print help and exit\n"
 "  -V, --version             Print version and exit\n"
 msgstr ""
-"  -h, --help               Imprimă ajutorul și iese\n"
-"  -V, --version            Imprimă versiunea și iese\n"
+"  -h, --help               imprimă ajutorul și iese\n"
+"  -V, --version            imprimă versiunea și iese\n"
 
 #: src/idn2.c:82
 msgid ""
@@ -201,9 +204,9 @@ msgid ""
 "  -l, --lookup              Lookup domain name (default)\n"
 "  -r, --register            Register label\n"
 msgstr ""
-"  -d, --decode             Decodează numele de domeniu (punycode)\n"
-"  -l, --lookup             Căutare nume de domeniu (predefinit)\n"
-"  -r, --register           Înregistrează eticheta\n"
+"  -d, --decode             decodifică numele de domeniu (punycode)\n"
+"  -l, --lookup             caută numele de domeniu (predefinit)\n"
+"  -r, --register           înregistrează eticheta\n"
 
 #: src/idn2.c:87
 msgid ""
@@ -211,9 +214,9 @@ msgid ""
 "  -N, --tr46nt              Enable TR46 non-transitional processing\n"
 "      --no-tr46             Disable TR46 processing\n"
 msgstr ""
-"  -T, --tr46t              Activează procesarea tranzițională TR46\n"
-"  -N, --tr46nt             Activează procesarea non-tranzițională TR46\n"
-"      --no-tr46            Dezactivează procesarea TR46\n"
+"  -T, --tr46t              activează procesarea tranzițională TR46\n"
+"  -N, --tr46nt             activează procesarea non-tranzițională TR46\n"
+"      --no-tr46            dezactivează procesarea TR46\n"
 
 #: src/idn2.c:92
 msgid ""
@@ -222,25 +225,25 @@ msgid ""
 "      --debug               Print debugging information\n"
 "      --quiet               Silent operation\n"
 msgstr ""
-"      --usestd3asciirules  Activează regulile ASCII STD3\n"
-"      --no-alabelroundtrip Dezactivează traiectoria dus-întors cu eticheta A pentru căutări\n"
-"      --debug              Imprimă informațiile de depanare\n"
-"      --quiet              Funcționare silențioasă\n"
+"      --usestd3asciirules  activează regulile ASCII STD3\n"
+"      --no-alabelroundtrip dezactivează traiectoria dus-întors cu eticheta A pentru căutări\n"
+"      --debug              imprimă informațiile de depanare\n"
+"      --quiet              funcționare silențioasă\n"
 
-#: src/idn2.c:207
+#: src/idn2.c:208
 #, c-format
 msgid "Charset: %s\n"
 msgstr "Set de caractere: %s\n"
 
-#: src/idn2.c:211
+#: src/idn2.c:212
 #, c-format
 msgid "libiconv required for non-UTF-8 character encoding: %s"
 msgstr "libiconv este necesară pentru codificarea caracterelor non-UTF-8: %s"
 
-#: src/idn2.c:217
+#: src/idn2.c:218
 msgid "Type each input string on a line by itself, terminated by a newline character.\n"
-msgstr "Tastați fiecare şir de intrare pe o singură linie, terminată cu un caracter linie-nouă.\n"
+msgstr "Tastați fiecare șir de intrare pe o singură linie, terminată cu un caracter de linie-nouă.\n"
 
-#: src/idn2.c:248
+#: src/idn2.c:249
 msgid "input error"
 msgstr "eroare de intrare"
