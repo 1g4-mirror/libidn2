@@ -15,7 +15,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* Before changing test expecations in this file, please contact the
+/* Before changing test expectations in this file, please contact the
    glibc developers on the libc-alpha mailing list to check if these
    changes are benign and will not lead to glibc test suite failures.
    Thanks.  */
