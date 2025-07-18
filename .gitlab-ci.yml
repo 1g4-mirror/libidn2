@@ -857,7 +857,7 @@ Debian9:
   - make -j$(nproc) -k check V=1 VERBOSE=t
 
 Debian10:
-  image: debian:buster
+  image: debian/eol:buster
   stage: test
   needs: [B-Trisquel11]
   before_script:
