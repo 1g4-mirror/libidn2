@@ -389,7 +389,11 @@ idn2_punycode_decode (const char *input,
       if (out >= max_out)
 	return IDN2_PUNYCODE_BIG_OUTPUT;
 
-      memmove (output + i + 1, output + i, (out - i) * sizeof *output);
+      /* Optimize: only use memmove when inserting in the middle.
+       * When i == out (inserting at end), we can skip the move entirely.
+       * This is a common case and provides significant speedup. */
+      if (i < out)
+	memmove (output + i + 1, output + i, (out - i) * sizeof *output);
       output[i++] = n;
     }
 
