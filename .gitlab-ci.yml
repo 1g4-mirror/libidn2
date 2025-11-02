@@ -223,7 +223,7 @@ B-Ubuntu2204:
 B-Trisquel11:
   rules:
   - when: always # this job is used by merge request jobs tagged with 'needs' on this job
-  image: kpengboy/trisquel:11.0
+  image: kpengboy/trisquel:latest
   extends: .trisquelubuntu
 
 Q-Debian-testing:
