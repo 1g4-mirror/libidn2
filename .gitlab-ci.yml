@@ -201,7 +201,7 @@ B-Debian12:
   - sed -i 's,http://archive.trisquel.info/trisquel,http://ftp.acc.umu.se/mirror/trisquel/packages,' /etc/apt/sources.list
   - time apt-get update -q
   - time apt-get install -y -q eatmydata
-  - time eatmydata apt-get install -y -q wget make gcc git autoconf automake libtool gettext autopoint gperf libunistring-dev valgrind gengetopt help2man texinfo gtk-doc-tools abi-compliance-checker abigail-tools
+  - time eatmydata apt-get install -y -q wget make gcc git autoconf automake libtool gettext autopoint gperf libunistring-dev valgrind gengetopt help2man texinfo gtk-doc-tools abi-compliance-checker abigail-tools texlive
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap --skip-po --no-git
