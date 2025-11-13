@@ -877,7 +877,7 @@ Debian-testing:
   needs: [B-Trisquel11]
   before_script:
   - apt-get update
-  - apt-get install -y -q make gcc
+  - apt-get install -y -q --no-install-recommends make gcc libc6-dev
   script:
   - tar xfa out/b-trisquel11/*-*.tar.gz
   - cd $(tar tfa out/b-trisquel11/*-*.tar.gz | head -n1)
