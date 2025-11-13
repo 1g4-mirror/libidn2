@@ -154,6 +154,14 @@ B-RockyLinux9:
   image: rockylinux:9
   extends: .almarocky
 
+B-AlmaLinux10:
+  image: almalinux:10
+  extends: .almarocky
+
+B-RockyLinux10:
+  image: rockylinux/rockylinux:10
+  extends: .almarocky
+
 .pureosdebian: &pureosdebian
   tags: [ saas-linux-medium-amd64 ]
   stage: build
@@ -548,7 +556,7 @@ B-Windows-UCRT64:
 0-compare:
   image: alpine:latest
   stage: repro
-  needs: [ B-AlmaLinux8, B-AlmaLinux9, B-RockyLinux8, B-RockyLinux9, B-Trisquel11, B-Ubuntu2204, B-PureOS10, B-Debian11, B-Devuan5, B-Debian12, B-gcc, B-clang, B-Guix, R-Guix, R-Debian12, R-Ubuntu2404, S-Trisquel10, S-Ubuntu2004, B-Ubuntu2404, B-Trisquel12 ]
+  needs: [ B-AlmaLinux8, B-AlmaLinux9, B-AlmaLinux10, B-RockyLinux8, B-RockyLinux9, B-RockyLinux10, B-Trisquel11, B-Ubuntu2204, B-PureOS10, B-Debian11, B-Devuan5, B-Debian12, B-gcc, B-clang, B-Guix, R-Guix, R-Debian12, R-Ubuntu2404, S-Trisquel10, S-Ubuntu2004, B-Ubuntu2404, B-Trisquel12 ]
   script:
   - cd out
   - sha256sum */*.tar.* */*/*.tar.* | sort | grep    -- -src.tar.
@@ -567,6 +575,8 @@ B-Windows-UCRT64:
   - cmp b-almalinux8/src/*.tar.gz r-debian12/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz r-guix/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz r-ubuntu2404/src/*v2.*.tar.gz
+# Confirm modern git-archive tarball reproducibility - with libz-ng
+  - cmp b-almalinux10/src/*.tar.gz b-rockylinux10/src/*.tar.gz
 # Confirm old git-archive (export-subst but long git describe) tarball reproducibility
   - cmp b-trisquel11/src/*.tar.gz b-ubuntu2204/src/*.tar.gz
 # Confirm really old git-archive (no export-subst) tarball reproducibility
@@ -574,6 +584,7 @@ B-Windows-UCRT64:
 # Confirm 'make dist' generated tarball reproducibility
   - cmp b-almalinux8/*.tar.gz b-rockylinux8/*.tar.gz || true # flaky
   - cmp b-almalinux9/*.tar.gz b-rockylinux9/*.tar.gz
+  - cmp b-almalinux10/*.tar.gz b-rockylinux10/*.tar.gz
   - cmp b-pureos10/*.tar.gz b-debian11/*.tar.gz
   - cmp b-devuan5/*.tar.gz b-debian12/*.tar.gz
   - cmp b-trisquel11/*.tar.gz b-ubuntu2204/*.tar.gz
@@ -957,6 +968,18 @@ AlmaLinux8:
   - ./configure --enable-gcc-warnings=error
   - make -j$(nproc) -k check V=1 VERBOSE=t
 
+AlmaLinux10:
+  image: almalinux:10
+  stage: test
+  needs: [B-Trisquel11]
+  before_script:
+  - time dnf --enablerepo=crb -y install make gcc diffutils valgrind libunistring-devel
+  script:
+  - tar xfa out/b-trisquel11/*-*.tar.gz
+  - cd $(tar tfa out/b-trisquel11/*-*.tar.gz | head -n1)
+  - ./configure --enable-gcc-warnings=error
+  - make -j$(nproc) -k check V=1 VERBOSE=t
+
 RockyLinux9-ppc64:
   rules:
   - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -964,6 +987,19 @@ RockyLinux9-ppc64:
   - if: $LIBIDN2_CI_RUN_PPC64_JOBS
   image: rockylinux:9
   tags: [ ppc64 ]
+  stage: test
+  needs: [B-Trisquel11]
+  before_script:
+  - time dnf --enablerepo=crb -y install make gcc diffutils valgrind libunistring-devel
+  script:
+  - tar xfa out/b-trisquel11/*-*.tar.gz
+  - cd $(tar tfa out/b-trisquel11/*-*.tar.gz | head -n1)
+  - time ./configure --enable-gcc-warnings=error
+  - time make -j$(nproc) check V=1 VERBOSE=t
+
+RockyLinux10-arm64:
+  image: rockylinux/rockylinux:10
+  tags: [ saas-linux-small-arm64 ]
   stage: test
   needs: [B-Trisquel11]
   before_script:
