@@ -69,6 +69,10 @@ update-po: refresh-po
 	for f in `ls po/*.po | grep -v quot.po`; do \
 		cp $$f $$f.in; \
 	done
+	if grep 'charset=EUC-JP' po/ja.po; then \
+		rm -fv po/ja.po po/ja.po.in; \
+		sed -i -e '/ja/d' po/LINGUAS; \
+	fi
 	git add po/*.po.in
 	git commit po/*.po.in \
 		-m "maint: Run 'make update-po' for new translations."
