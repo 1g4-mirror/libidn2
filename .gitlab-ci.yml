@@ -198,7 +198,7 @@ B-Debian12:
     DEBIAN_FRONTEND: noninteractive
   before_script:
   - cat /etc/os-release
-  - sed -i 's,http://archive.trisquel.info/trisquel,http://ftp.acc.umu.se/mirror/trisquel/packages,' /etc/apt/sources.list
+  - sed -i 's,archive.trisquel.info/trisquel,ftp.acc.umu.se/mirror/trisquel/packages,' /etc/apt/sources.list
   - time apt-get update -q
   - time apt-get install -y -q eatmydata
   - time eatmydata apt-get install -y -q wget make gcc git autoconf automake libtool gettext autopoint gperf libunistring-dev valgrind gengetopt help2man texinfo gtk-doc-tools abi-compliance-checker abigail-tools
@@ -224,6 +224,14 @@ B-Trisquel11:
   rules:
   - when: always # this job is used by merge request jobs tagged with 'needs' on this job
   image: kpengboy/trisquel:11.0
+  extends: .trisquelubuntu
+
+B-Ubuntu2404:
+  image: ubuntu:24.04
+  extends: .trisquelubuntu
+
+B-Trisquel12:
+  image: kpengboy/trisquel:12.0
   extends: .trisquelubuntu
 
 Q-Debian-testing:
@@ -540,7 +548,7 @@ B-Windows-UCRT64:
 0-compare:
   image: alpine:latest
   stage: repro
-  needs: [ B-AlmaLinux8, B-AlmaLinux9, B-RockyLinux8, B-RockyLinux9, B-Trisquel11, B-Ubuntu2204, B-PureOS10, B-Debian11, B-Devuan5, B-Debian12, B-gcc, B-clang, B-Guix, R-Guix, R-Debian12, R-Ubuntu2404, S-Trisquel10, S-Ubuntu2004 ]
+  needs: [ B-AlmaLinux8, B-AlmaLinux9, B-RockyLinux8, B-RockyLinux9, B-Trisquel11, B-Ubuntu2204, B-PureOS10, B-Debian11, B-Devuan5, B-Debian12, B-gcc, B-clang, B-Guix, R-Guix, R-Debian12, R-Ubuntu2404, S-Trisquel10, S-Ubuntu2004, B-Ubuntu2404, B-Trisquel12 ]
   script:
   - cd out
   - sha256sum */*.tar.* */*/*.tar.* | sort | grep    -- -src.tar.
@@ -550,12 +558,14 @@ B-Windows-UCRT64:
   - sha256sum */*.tar.* */*/*.tar.* | grep -v -- -src.tar. | sort | uniq -c -w64 | grep -v '^      1 '
 # Confirm modern git-archive tarball reproducibility
   - cmp b-almalinux8/src/*.tar.gz b-almalinux9/src/*.tar.gz
-  - cmp b-almalinux8/src/*.tar.gz b-rockylinux8/src/*.tar.gz
-  - cmp b-almalinux8/src/*.tar.gz b-rockylinux9/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz b-debian12/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz b-devuan5/src/*.tar.gz
-  - cmp b-almalinux8/src/*.tar.gz r-guix/src/*.tar.gz
+  - cmp b-almalinux8/src/*.tar.gz b-rockylinux8/src/*.tar.gz
+  - cmp b-almalinux8/src/*.tar.gz b-rockylinux9/src/*.tar.gz
+  - cmp b-almalinux8/src/*.tar.gz b-trisquel12/src/*.tar.gz
+  - cmp b-almalinux8/src/*.tar.gz b-ubuntu2404/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz r-debian12/src/*.tar.gz
+  - cmp b-almalinux8/src/*.tar.gz r-guix/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz r-ubuntu2404/src/*v2.*.tar.gz
 # Confirm old git-archive (export-subst but long git describe) tarball reproducibility
   - cmp b-trisquel11/src/*.tar.gz b-ubuntu2204/src/*.tar.gz
@@ -567,6 +577,7 @@ B-Windows-UCRT64:
   - cmp b-pureos10/*.tar.gz b-debian11/*.tar.gz
   - cmp b-devuan5/*.tar.gz b-debian12/*.tar.gz
   - cmp b-trisquel11/*.tar.gz b-ubuntu2204/*.tar.gz
+  - cmp b-trisquel12/*.tar.gz b-ubuntu2404/*.tar.gz
   - cmp b-guix/*.tar.gz r-guix/*.tar.gz
 # Confirm 'make dist' from git-archive tarball reproducibility
   - cmp s-trisquel10/*.tar.gz s-ubuntu2004/*.tar.gz
@@ -978,6 +989,19 @@ Ubuntu14.04:
 
 Trisquel11:
   image: kpengboy/trisquel:11.0
+  stage: test
+  needs: [B-Trisquel11]
+  before_script:
+  - apt-get update -q
+  - apt-get install -y -q make gcc
+  script:
+  - tar xfa out/b-trisquel11/*-*.tar.gz
+  - cd $(tar tfa out/b-trisquel11/*-*.tar.gz | head -n1)
+  - ./configure --enable-gcc-warnings=error
+  - make -j$(nproc) -k check V=1 VERBOSE=t
+
+Trisquel12:
+  image: kpengboy/trisquel:12.0
   stage: test
   needs: [B-Trisquel11]
   before_script:
