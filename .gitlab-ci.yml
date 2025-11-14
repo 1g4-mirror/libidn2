@@ -322,7 +322,7 @@ B-Fedora41:
   stage: build
   image: fedora:41
   before_script:
-  - time dnf install -y wget make gcc git autoconf automake libtool gettext-devel glibc-gconv-extra patch gperf libunistring-devel valgrind gengetopt help2man texinfo texinfo-tex texlive gtk-doc dblatex libabigail
+  - time dnf install -y wget make gcc git autoconf automake libtool gettext-devel patch gperf libunistring-devel valgrind gengetopt help2man texinfo texinfo-tex texlive gtk-doc dblatex libabigail
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap --no-git
@@ -344,7 +344,7 @@ B-Fedora39-ASAN/UBSan:
   - dnf install -y libunistring-devel valgrind gengetopt help2man
   - dnf install -y texinfo gtk-doc
   - dnf install -y libabigail
-  - dnf install -y glibc-gconv-extra clang
+  - dnf install -y clang
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap --skip-po --no-git
@@ -370,7 +370,7 @@ B-Fedora39-clang-analyzer:
   - dnf install -y libunistring-devel valgrind gengetopt help2man
   - dnf install -y texinfo texinfo-tex texlive gtk-doc dblatex
   - dnf install -y libabigail
-  - dnf install -y glibc-gconv-extra clang-analyzer
+  - dnf install -y clang-analyzer
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap --skip-po --no-git
@@ -387,6 +387,21 @@ B-Fedora39-clang-analyzer:
     - doc/reference
     - doc/manual
     - clang-analyzer
+
+B-Fedora-latest:
+  stage: build
+  image: fedora:latest
+  before_script:
+  - cat /etc/os-release
+  - time dnf install -y wget make gcc git autoconf automake libtool gettext-devel patch gperf libunistring-devel valgrind gengetopt help2man texinfo texinfo-tex gtk-doc libabigail
+  script:
+  - sed -i -e '/GNULIB_REVISION=/d' bootstrap.conf
+  - time ./bootstrap
+  - time ./configure --enable-gcc-warnings=error
+  - time make -j$(nproc) syntax-check
+  - time make -j$(nproc) check
+  - time make -j$(nproc) distcheck V=1 VERBOSE=t
+  - !reference [.save-artifacts, script]
 
 sast:
   stage: build
