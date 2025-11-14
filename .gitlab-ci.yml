@@ -169,6 +169,7 @@ B-RockyLinux10:
     DEBIAN_FRONTEND: noninteractive
   before_script:
   - cat /etc/os-release
+  - ls -ald /usr/sbin | grep ^drwxr-xr-x > /dev/null || chmod -v 755 /usr/sbin
   - time apt-get update -q
   - time apt-get install -y -q eatmydata
   - time eatmydata apt-get install -y -q wget make gcc git autoconf automake libtool gettext autopoint gperf libunistring-dev valgrind gengetopt help2man texinfo gtk-doc-tools abi-compliance-checker abigail-tools
@@ -197,6 +198,14 @@ B-Devuan5:
 
 B-Debian12:
   image: debian:12-slim
+  extends: .pureosdebian
+
+B-Devuan6:
+  image: devuan/devuan:excalibur
+  extends: .pureosdebian
+
+B-Debian13:
+  image: debian:13-slim
   extends: .pureosdebian
 
 .trisquelubuntu: &trisquelubuntu
@@ -556,7 +565,7 @@ B-Windows-UCRT64:
 0-compare:
   image: alpine:latest
   stage: repro
-  needs: [ B-AlmaLinux8, B-AlmaLinux9, B-AlmaLinux10, B-RockyLinux8, B-RockyLinux9, B-RockyLinux10, B-Trisquel11, B-Ubuntu2204, B-PureOS10, B-Debian11, B-Devuan5, B-Debian12, B-gcc, B-clang, B-Guix, R-Guix, R-Debian12, R-Ubuntu2404, S-Trisquel10, S-Ubuntu2004, B-Ubuntu2404, B-Trisquel12 ]
+  needs: [ B-AlmaLinux8, B-AlmaLinux9, B-AlmaLinux10, B-RockyLinux8, B-RockyLinux9, B-RockyLinux10, B-Trisquel11, B-Ubuntu2204, B-PureOS10, B-Debian11, B-Devuan5, B-Debian12, B-Devuan6, B-Debian13, B-gcc, B-clang, B-Guix, R-Guix, R-Debian12, R-Ubuntu2404, S-Trisquel10, S-Ubuntu2004, B-Ubuntu2404, B-Trisquel12 ]
   script:
   - cd out
   - sha256sum */*.tar.* */*/*.tar.* | sort | grep    -- -src.tar.
@@ -567,7 +576,9 @@ B-Windows-UCRT64:
 # Confirm modern git-archive tarball reproducibility
   - cmp b-almalinux8/src/*.tar.gz b-almalinux9/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz b-debian12/src/*.tar.gz
+  - cmp b-almalinux8/src/*.tar.gz b-debian13/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz b-devuan5/src/*.tar.gz
+  - cmp b-almalinux8/src/*.tar.gz b-devuan6/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz b-rockylinux8/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz b-rockylinux9/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz b-trisquel12/src/*.tar.gz
@@ -587,6 +598,7 @@ B-Windows-UCRT64:
   - cmp b-almalinux10/*.tar.gz b-rockylinux10/*.tar.gz
   - cmp b-pureos10/*.tar.gz b-debian11/*.tar.gz
   - cmp b-devuan5/*.tar.gz b-debian12/*.tar.gz
+  - cmp b-devuan6/*.tar.gz b-debian13/*.tar.gz
   - cmp b-trisquel11/*.tar.gz b-ubuntu2204/*.tar.gz
   - cmp b-trisquel12/*.tar.gz b-ubuntu2404/*.tar.gz
   - cmp b-guix/*.tar.gz r-guix/*.tar.gz
