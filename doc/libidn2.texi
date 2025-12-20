@@ -2,7 +2,7 @@
 @c %**start of header
 @setfilename libidn2.info
 @include version.texi
-@documentencoding utf-8
+@documentencoding UTF-8
 @settitle Libidn2 @value{VERSION}
 @finalout
 
