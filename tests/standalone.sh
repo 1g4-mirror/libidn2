@@ -1,4 +1,4 @@
-#!/bin/sh
+s#!/bin/sh
 
 # Copyright (C) 2024-2025 Simon Josefsson
 
@@ -46,19 +46,19 @@
 #
 # To check a newly built STATIC libidn WITH system -lunistring:
 #
-# env STANDALONE_CFLAGS="-Ilib lib/.libs/libidn2.a unistring/.libs/libunistring.a gl/.libs/libgnu.a -lunistring" tests/standalone.sh
+# env STANDALONE_CFLAGS="-Ilib lib/.libs/libidn2.a gl/.libs/libgnu.a -lunistring" tests/standalone.sh
 #
 # To check a newly built SHARED libidn WITH system -lunistring:
 #
-# env STANDALONE_CFLAGS="-Ilib -Wl,-rpath lib/.libs lib/.libs/libidn2.so unistring/.libs/libunistring.a gl/.libs/libgnu.a -lunistring" tests/standalone.sh
+# env STANDALONE_CFLAGS="-Ilib -Wl,-rpath lib/.libs lib/.libs/libidn2.so gl/.libs/libgnu.a -lunistring" tests/standalone.sh
 #
 # To check a newly built STATIC libidn WITHOUT system -lunistring:
 #
-# env STANDALONE_CFLAGS="-DHAVE_CONFIG_H -I. -Ilib -Iunistring lib/.libs/libidn2.a unistring/.libs/libunistring.a gl/.libs/libgnu.a" tests/standalone.sh
+# env STANDALONE_CFLAGS="-DHAVE_CONFIG_H -I. -Ilib lib/.libs/libidn2.a gl/.libs/libgnu.a" tests/standalone.sh
 #
 # To check a newly built SHARED libidn WITHOUT system -lunistring:
 #
-# env STANDALONE_CFLAGS="-DHAVE_CONFIG_H -I. -Ilib -Iunistring -Wl,-rpath lib/.libs lib/.libs/libidn2.so unistring/.libs/libunistring.a gl/.libs/libgnu.a" tests/standalone.sh
+# env STANDALONE_CFLAGS="-DHAVE_CONFIG_H -I. -Ilib -Wl,-rpath lib/.libs lib/.libs/libidn2.so gl/.libs/libgnu.a" tests/standalone.sh
 #
 # All variables can be combined to support combined behaviour.
 

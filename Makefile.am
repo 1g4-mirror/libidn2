@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = gl unistring lib src examples fuzz po
+SUBDIRS = gl lib src examples fuzz po
 
 if ENABLE_DOC
 SUBDIRS += doc

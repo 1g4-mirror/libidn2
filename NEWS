@@ -2,6 +2,15 @@ Libidn2 NEWS -- History of user-visible changes.                -*- outline -*-
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
+** libidn2.pc features a 'License:' header.
+Patch by Nobuhiro Iwamatsu <iwamatsu@nigauri.org>.
+
+** Simplify gnulib integration of stripped-down libunistring.
+The unistring/ sub-directory has been merged into gnulib's gl/.
+
+** Translation updates.
+
+** Update gnulib files and various build/maintenance fixes.
 
 * Noteworthy changes in release 2.3.8 (2025-03-08) [stable]
 

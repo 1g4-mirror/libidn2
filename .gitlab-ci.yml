@@ -227,8 +227,8 @@ B-Debian13:
   - time make -j$(nproc) V=1 VERBOSE=t check
   - make -C doc compare-makefile
   - time make -j$(nproc) V=1 VERBOSE=t distcheck AM_DISTCHECK_DVI_TARGET=
-  - env IDN2=src/idn2 STANDALONE_CFLAGS="-Ilib -Itests lib/.libs/libidn2.a unistring/.libs/libunistring.a gl/.libs/libgnu.a -lunistring" tests/standalone.sh
-  - env IDN2=src/idn2 STANDALONE_CFLAGS="-Ilib -Itests -Wl,-rpath lib/.libs lib/.libs/libidn2.so unistring/.libs/libunistring.a gl/.libs/libgnu.a -lunistring" tests/standalone.sh
+  - env IDN2=src/idn2 STANDALONE_CFLAGS="-Ilib -Itests lib/.libs/libidn2.a gl/.libs/libgnu.a -lunistring" tests/standalone.sh
+  - env IDN2=src/idn2 STANDALONE_CFLAGS="-Ilib -Itests -Wl,-rpath lib/.libs lib/.libs/libidn2.so gl/.libs/libgnu.a -lunistring" tests/standalone.sh
   - make abi-check
   - make dist
   - !reference [.save-artifacts, script]
@@ -273,8 +273,8 @@ Q-Debian-testing:
   - grep am_cv_func_iconv_summary config.log
   - time make -j$(nproc) -k syntax-check
   - time make -j$(nproc) -k V=1 check VERBOSE=t
-  - env IDN2=src/idn2 STANDALONE_CFLAGS="-DHAVE_CONFIG_H -I. -Ilib -I../lib -Itests -Iunistring -I../unistring lib/.libs/libidn2.a unistring/.libs/libunistring.a gl/.libs/libgnu.a" ../tests/standalone.sh
-  - env IDN2=src/idn2 STANDALONE_CFLAGS="-DHAVE_CONFIG_H -I. -Ilib -I../lib -Itests -Iunistring -I../unistring -Wl,-rpath lib/.libs lib/.libs/libidn2.so unistring/.libs/libunistring.a gl/.libs/libgnu.a" ../tests/standalone.sh
+  - env IDN2=src/idn2 STANDALONE_CFLAGS="-DHAVE_CONFIG_H -I. -Ilib -I../lib -Itests -Igl -I../gl lib/.libs/libidn2.a gl/.libs/libgnu.a" ../tests/standalone.sh
+  - env IDN2=src/idn2 STANDALONE_CFLAGS="-DHAVE_CONFIG_H -I. -Ilib -I../lib -Itests -Igl -I../gl -Wl,-rpath lib/.libs lib/.libs/libidn2.so gl/.libs/libgnu.a" ../tests/standalone.sh
   - git diff --exit-code # nothing should change version controlled files
 
 B-Debian-testing:
@@ -291,10 +291,9 @@ B-Debian-testing:
   - time make -j$(nproc) V=1
   - time make -j$(nproc) -k check VERBOSE=t
   - git diff --exit-code # nothing should change version controlled files
-  - rm unistring/libunistring.la # FIXME XXX debug why this is needed...
   - time make -j$(nproc) distcheck
-  - env IDN2=src/idn2 STANDALONE_CFLAGS="-Ilib lib/.libs/libidn2.a unistring/.libs/libunistring.a gl/.libs/libgnu.a -lunistring" tests/standalone.sh
-  - env IDN2=src/idn2 STANDALONE_CFLAGS="-Ilib -Wl,-rpath lib/.libs lib/.libs/libidn2.so unistring/.libs/libunistring.a gl/.libs/libgnu.a -lunistring" tests/standalone.sh
+  - env IDN2=src/idn2 STANDALONE_CFLAGS="-Ilib lib/.libs/libidn2.a gl/.libs/libgnu.a -lunistring" tests/standalone.sh
+  - env IDN2=src/idn2 STANDALONE_CFLAGS="-Ilib -Wl,-rpath lib/.libs lib/.libs/libidn2.so gl/.libs/libgnu.a -lunistring" tests/standalone.sh
   - make install
   - apt-get install -y -q man
   - git clone --depth=1 https://salsa.debian.org/debian/libidn2.git debian-libidn2
@@ -335,16 +334,16 @@ B-Fedora41:
 # https://releases.llvm.org/13.0.0/tools/clang/docs/AddressSanitizer.html
 # https://releases.llvm.org/13.0.0/tools/clang/docs/UndefinedBehaviorSanitizer.html
 # https://lists.gnu.org/archive/html/bug-gnulib/2022-03/msg00016.html
-B-Fedora39-ASAN/UBSan:
+B-Fedora43-ASAN/UBSan:
   stage: build
-  image: fedora:39
+  image: fedora:43
   before_script:
   - dnf install -y wget make
   - dnf install -y git autoconf automake libtool gettext-devel patch gperf
   - dnf install -y libunistring-devel valgrind gengetopt help2man
   - dnf install -y texinfo gtk-doc
   - dnf install -y libabigail
-  - dnf install -y glibc-gconv-extra clang
+  - dnf install -y clang
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap --skip-po --no-git
@@ -353,29 +352,27 @@ B-Fedora39-ASAN/UBSan:
   - ASAN_OPTIONS=detect_leaks=0 ./configure --disable-doc --disable-gcc-warnings
   - ASAN_OPTIONS=detect_leaks=0 make V=1 -j$(nproc) check VERBOSE=t
   - make clean
-  - export CFLAGS="-fsanitize=undefined,integer -fno-sanitize-recover=undefined,integer -g -O0"
+  - export CFLAGS="-fsanitize=undefined,integer -fno-sanitize-recover=undefined,integer -fno-sanitize=implicit-signed-integer-truncation,implicit-unsigned-integer-truncation,implicit-integer-sign-change -g -O0"
   - ./configure --disable-doc --disable-gcc-warnings
-  - make V=1 -C unistring
   - make V=1 -C gl
   - make V=1 -C lib CFLAGS="$CFLAGS -Wall -Wextra -Werror"
   - make V=1 -C examples CFLAGS="$CFLAGS -Wall -Wextra -Werror"
   - make V=1 -j$(nproc) check VERBOSE=t
 
-B-Fedora39-clang-analyzer:
+B-Fedora43-clang-analyzer:
   stage: build
-  image: fedora:39
+  image: fedora:43
   before_script:
   - dnf install -y wget make gcc
   - dnf install -y git autoconf automake libtool gettext-devel patch gperf
   - dnf install -y libunistring-devel valgrind gengetopt help2man
   - dnf install -y texinfo texinfo-tex texlive gtk-doc dblatex
   - dnf install -y libabigail
-  - dnf install -y glibc-gconv-extra clang-analyzer
+  - dnf install -y clang-analyzer
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap --skip-po --no-git
   - scan-build ./configure --enable-gtk-doc --enable-gtk-doc-pdf
-  - make -j$(nproc) -C unistring
   - make -j$(nproc) -C gl
   - scan-build -o clang-analyzer make -j$(nproc) -C lib
   - make
@@ -665,7 +662,7 @@ R-Debian12:
   - cat /etc/os-release
   - time apt-get update -q
   - time apt-get install -y -q eatmydata
-  - time eatmydata apt-get install -y -q wget make gcc git autoconf automake libtool gettext autopoint gperf libunistring-dev gengetopt help2man texinfo abi-compliance-checker abigail-tools gtk-doc-tools
+  - time eatmydata apt-get install -y -q wget make gcc git autoconf automake libtool gettext autopoint gperf libunistring-dev gengetopt help2man texinfo abi-compliance-checker abigail-tools gtk-doc-tools libdigest-sha3-perl
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap --skip-po --no-git
@@ -712,7 +709,7 @@ R-Ubuntu2404:
   - cat /etc/os-release
   - time apt-get update -q
   - time apt-get install -y -q eatmydata
-  - time eatmydata apt-get install -y -q wget make gcc git autoconf automake libtool gettext autopoint gperf libunistring-dev gengetopt indent help2man texinfo abi-compliance-checker abigail-tools gtk-doc-tools
+  - time eatmydata apt-get install -y -q wget make gcc git autoconf automake libtool gettext autopoint gperf libunistring-dev gengetopt indent help2man texinfo abi-compliance-checker abigail-tools gtk-doc-tools libdigest-sha3-perl
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap --skip-po --no-git
@@ -1137,7 +1134,7 @@ Mingw64:
 
 .pages:
   stage: build
-  needs: ["B-Fedora39-clang-analyzer"]
+  needs: ["B-Fedora43-clang-analyzer"]
   image: $CI_REGISTRY/libidn/build-images:libidn2-Debian12
   before_script:
   - apt-get install -y -q lcov

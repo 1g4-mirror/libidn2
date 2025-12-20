@@ -37,7 +37,7 @@ AC_SUBST([NUMBER_VERSION], [`printf '0x%02x%02x%04x' $MAJOR_VERSION $MINOR_VERSI
 AC_MSG_NOTICE([$PACKAGE_NAME $PACKAGE_VERSION $PACKAGE_TARNAME $MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION $NUMBER_VERSION $LT_CURRENT:$LT_REVISION:$LT_AGE $DLL_VERSION])
 
 AC_CONFIG_AUX_DIR([build-aux])
-AC_CONFIG_MACRO_DIRS([m4 gl/m4 unistring/m4])
+AC_CONFIG_MACRO_DIRS([m4 gl/m4])
 AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE([1.14 tar-ustar -Wall -Wno-portability subdir-objects])
@@ -46,11 +46,9 @@ AM_SILENT_RULES([yes])
 AC_PROG_CC
 AC_USE_SYSTEM_EXTENSIONS
 gl_EARLY
-unistring_EARLY
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 LT_INIT([win32-dll])
 gl_INIT
-unistring_INIT
 AC_DEFINE([GNULIB_NO_VLA], 1, [Disable VLA usage in gettext.h.])
 
 # Detect the target system
@@ -185,7 +183,6 @@ AC_CONFIG_FILES([
   examples/Makefile
   lib/idn2.h
   lib/Makefile
-  unistring/Makefile
   gl/Makefile
   libidn2.pc
   po/Makefile.in

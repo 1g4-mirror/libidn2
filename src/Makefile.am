@@ -16,13 +16,12 @@
 AM_CPPFLAGS = -I$(top_builddir)/gl -I$(top_srcdir)/gl
 AM_CPPFLAGS += -I$(top_srcdir) -I$(top_builddir) -I$(top_builddir)/lib -I$(srcdir)
 AM_CPPFLAGS += -DLOCALEDIR=\"$(localedir)\"
-AM_CPPFLAGS += -I$(top_srcdir)/unistring/ -I$(top_builddir)/unistring/
 AM_CFLAGS = $(WERROR_CFLAGS) $(WARN_CFLAGS)
 
 bin_PROGRAMS = idn2
 
 idn2_SOURCES = idn2.c
-idn2_LDADD = libidn2_cmd.la ../lib/libidn2.la ../gl/libgnu.la ../unistring/libunistring.la $(LTLIBUNISTRING) $(LIBS)
+idn2_LDADD = libidn2_cmd.la ../lib/libidn2.la ../gl/libgnu.la $(LTLIBUNISTRING) $(LIBS)
 
 EXTRA_idn2_DEPENDENCIES = $(top_srcdir)/.version
 
@@ -30,7 +29,7 @@ idn2.c: $(BUILT_SOURCES)
 
 noinst_LTLIBRARIES = libidn2_cmd.la
 libidn2_cmd_la_SOURCES =  idn2.ggo idn2_cmd.c idn2_cmd.h
-libidn2_cmd_la_LIBADD = ../gl/libgnu.la ../unistring/libunistring.la $(LTLIBUNISTRING)
+libidn2_cmd_la_LIBADD = ../gl/libgnu.la $(LTLIBUNISTRING)
 libidn2_cmd_la_CFLAGS =
 
 # pattern rule (%) needed for parallel make (-j)

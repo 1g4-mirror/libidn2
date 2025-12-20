@@ -30,7 +30,7 @@
 #include <unitypes.h>
 #include <uniconv.h>
 #include <unistr.h>
-#include <unistring/localcharset.h>
+#include <localcharset.h>
 
 /* Gnulib headers. */
 #include <error.h>

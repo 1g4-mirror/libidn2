@@ -1,4 +1,3 @@
-!/unistring/Makefile.am
 *.exe
 *.gcda
 *.gcno
@@ -161,7 +160,6 @@
 /tests/test-strerror
 /tests/test-tounicode
 /tests/test-version
-/unistring/
 Makefile
 Makefile.in
 TAGS
