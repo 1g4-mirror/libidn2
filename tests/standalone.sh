@@ -1,4 +1,4 @@
-s#!/bin/sh
+#!/bin/sh
 
 # Copyright (C) 2024-2025 Simon Josefsson
 
