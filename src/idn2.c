@@ -109,13 +109,15 @@ hexdump (const char *prefix, const char *str)
   size_t i;
   const char *encoding = locale_charset ();
 
-  u8 = u8_strconv_from_encoding (str, encoding, iconveh_error);
-  if (u8)
-    u32 = u8_to_u32 (u8, strlen ((char *) u8), NULL, &u32len);
-
   for (i = 0; i < strlen (str); i++)
     fprintf (stderr, "%s[%lu] = 0x%02x\n",
 	     prefix, (unsigned long) i, (unsigned) (str[i] & 0xFF));
+
+  u8 = u8_strconv_from_encoding (str, encoding, iconveh_error);
+  if (!u8)
+    return;
+
+  u32 = u8_to_u32 (u8, strlen ((char *) u8), NULL, &u32len);
 
   if (u8 && strcmp (str, (char *) u8) != 0)
     for (i = 0; i < strlen ((char *) u8); i++)
