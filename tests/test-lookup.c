@@ -732,8 +732,20 @@ static const struct idna idna[] = {
       http://article.gmane.org/gmane.ietf.idnabis/7366 */
    },
   {
-   "\xc2\xb7", "xn--uba", IDN2_OK
-   /* Contexto: Lookup of U+00B7 should succeed. */
+   "\xc2\xb7", "", IDN2_CONTEXTO
+   /* Contexto: U+00B7 alone fails; must be between two 'l' chars (l·l) */
+   },
+  {
+   "l\xc2\xb7l", "xn--ll-0ea", IDN2_OK
+   /* Contexto: U+00B7 between l succeeds (l·l) */
+   },
+  {
+   "ab\xcd\xb5cd", "", IDN2_CONTEXTO
+   /* Contexto: U+0375 not before Greek fails */
+   },
+  {
+   "a\xcd\xb5\xce\xb1b", "", IDN2_OK
+   /* Contexto: U+0375 before Greek succeeds (a·αb) */
    },
   {
    "\xd0\x94\xd0\xb0\xc1\x80", "", IDN2_ENCODING_ERROR},
