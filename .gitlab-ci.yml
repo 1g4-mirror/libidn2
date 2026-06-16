@@ -359,6 +359,21 @@ B-Fedora43-ASAN/UBSan:
   - make V=1 -C examples CFLAGS="$CFLAGS -Wall -Wextra -Werror"
   - make V=1 -j$(nproc) check VERBOSE=t
 
+B-Fedora44-MSAN: # https://clang.llvm.org/docs/MemorySanitizer.html
+  stage: build
+  image: fedora:44
+  before_script:
+  - dnf install -y wget make
+  - dnf install -y git autoconf automake libtool gettext-devel patch gperf
+  - dnf install -y libunistring-devel valgrind gengetopt help2man
+  - dnf install -y texinfo gtk-doc
+  - dnf install -y clang
+  script:
+  - !reference [.gnulib-fetch, script]
+  - time ./bootstrap --skip-po --no-git
+  - ./configure --disable-doc CC="clang" CFLAGS="-O0 -g -fsanitize=memory -fno-omit-frame-pointer -fno-optimize-sibling-calls -fsanitize-memory-track-origins=2" --with-included-libunistring --disable-shared --enable-static
+  - make V=1 -j$(nproc) check VERBOSE=t
+
 B-Fedora43-clang-analyzer:
   stage: build
   image: fedora:43
